@@ -1,86 +1,89 @@
-canvas=document.getElementById('myCanvas');
-ctx=canvas.getContext("2d");
-rover_width=100;
-rover_height=90;
-rover_x=10;
-rover_y=10;
-background_image="mars.jpg";
-rover_image="rover.png";
-function add(){
-background_imgtag = new Image();
-background_imgtag.onload = uploadBackground;
-background_imgtag.src = background_image; 
-rover_imgtag = new Image();
-rover_imgtag.onload = uploadrover;
-rover_imgtag.src = rover_image;  
-}
-function uploadrover() {
-ctx.drawimage(rover_imgtag, rover_x, rover_y, rover_width, rover_height);    
-}
-function uploadBackground(){
-    ctx.drawimage(background_imgtag, 0,0, canvas.width, canvas.height);
-
-}
-window.addEventListener("keydown", my_keydown)
+var canvas = new fabric.Canvas('mycanvas');
+block_image_width = 30;
+block_image_height = 30;
+player_x =10;
+player_y =10;
+var player_object="";
+function player_update() { 
+    fabric.Image.fromURL("player.png", function(Img) {
+   player_object  = Img;
+    player_object.scaleToWidth(150);
+ player_object.scaleToHeight(140);
+ player_object.set({ top:player_y, left:player_x });
+canvas.add(player_object); }); }
+  function new_image(get_image) {
+ fabric.Image.fromURL(get_image, function(Img) {
+ block_image_object = Img; block_image_object.scaleToWidth(block_image_width);
+  block_image_object.scaleToHeight(block_image_height);
+ block_image_object.set({ top:player_y, left:player_x = canvas.add(block_image_object); });}
+window.addEventListener("keydown", my_keydown);
 function my_keydown(e)
 {
-    keyPressed = e.keyCode;
-    console.log(keypressed);
-    if(keyPressed =='38'){
-     up();
-console.log ("up");
-    }
-    if(keyPressed =='40'){
-        down();
-   console.log ("down");
-       }
-       if(keyPressed =='37')
-       {
-        left();
-   console.log ("left");
-       }
-       if(keyPressed =='39')
-       {
-        right();
-   console.log ("right");
-       }
-} 
-function up(){
-if(rover_y >=0)    
+ keypressed = e.keycode;
+ console.log("keypressed");
+ if(e.shiftkey == true && keypressed == '80')
+ {
+console.log("p and shift pressed together");
+block_image_width = block_image_width + 10;
+block_image_height = block_image_height + 10;
+document.getElementById("current_width").innerhtml = block_image_width;
+document.getElementById("current_height").innerhtml = block_image_height
+}
+if(e.shiftkey && keypressed == '77')
 {
-    rover_y -= 10;
-    console.log("when up arrow is pressed ="+ rover_x +"-"+rover_y);
- 
-     
-  }
-  }
-  function down()
-  {
-      if(rover_y<=500)
-    {
-     rover_y += 10;
-     console.log("when down arrow is pressed, x ="+rover_x+"/ y ="rover_y);
-     uploadBackground();
-     uploadrover(); 
-     }
-     }
-     function left()
-     {
-         if(rover_x >=0)
-         {
-             rover_x -= 10;
-             console.log("when left arrow is pressed,x ="+rover_x+"/ y ="rover_y);
-             uploadBackground();
-     uploadrover();
-     }
-     }
-     function right()
-         {
-             if(rover_x >= 700)
-     {
-         rover_x += 10;
-         console.log("when right is pressed,x ="+rover_x+"/ y ="rover_y);
-         uploadBackground();
- uploadrover();
- }
- }
+console.log("m and shift pressed together") 
+block_image_width = block_image_width - 10;
+block_image_height = block_image_height - 10;
+document.getElementById("current_width").innerhtml = block_image_width;
+document.getElementById("current_height").innerhtml = block_image_height
+} 
+if(keypressed == '38')
+{   
+up();
+console.log("up");
+}
+if(keypressed == '40')
+{   
+down();
+console.log("down");
+}
+if(keypressed == '37')
+{   
+left();
+console.log("left");
+}
+if(keypressed == '39')
+{   
+right();
+console.log("right");
+}
+if(keypressed == '87')
+{   
+new_image('wall.jpg');
+console.log("w")
+}
+if(keypressed == '71')
+{   
+new_image('ground.png');
+console.log("g");
+}
+if(keypressed == '87')
+{   
+new_image('light_green.png');
+console.log("l");
+}
+if(keypressed == '84')
+{   
+new_image('truck.jpg');
+console.log("t");
+}
+if(keypressed == '82')
+{   
+new_image('roof.jpg');
+console.log("r");
+}
+if(keypressed == '89')
+{   
+new_image('yellow_wall.png');
+console.log("y");
+}
